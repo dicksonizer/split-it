@@ -14,13 +14,17 @@ def option_c():
   #Project Title variable takes in alphanumeric characters
   projectTitle = str(input('Enter the project name: '))
 
-  #Only accept numbers (more than 2) for teamNumber
+  #Only accept integers (more than 2) for teamNumber
   while True:
-    teamNumber = int(input('Enter the number of team members: '))
-    if teamNumber < 3:
-      print('Try again; only teams of more than 2 are allowed')
-    else:
-      break
+    try:
+      teamNumber = int(input('Enter the number of team members: '))
+      if teamNumber < 3:
+        print('Try again: only teams of more than 2 are allowed')
+      else:
+        break
+    except ValueError:
+      print('Try again: you must input a number')
+      pass
 
   #Accept alphanumeric characters for team member names
   for i in range(1,teamNumber+1):
