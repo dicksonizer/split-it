@@ -48,7 +48,7 @@ def return_to_menu():
   while True:
     back = input('Press <Enter> to return to the main menu:')
     if back != '':
-      print('Try again')
+      print('Wrong input, try again')
     else:
       menu()
   
