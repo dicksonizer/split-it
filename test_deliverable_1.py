@@ -11,15 +11,17 @@ class testDeliverable_1(unittest.Testcase):
         self.assertEqual(option('V','v'),option_v())
         self.assertEqual(option('S','s'),option_s())
         self.assertEqual(option('Q','q'),option_q())
-        self.assertEqual(option('w','E',')','3','#','')menu())
+        self.assertEqual(option('w','E',')','3','#',''),menu())
     
     def test_option_c(self):
         teamNumber = int(input('Enter the number of team members: '))
-        with self.assertRaises(ValueError):
-            deliverable_1.option_c()
+        self.assertTrue(teamNumber(0, 1, 2),break)
+        self.assertRaise(teamNumber(ValueError),pass)
+        
+        teamNumber_1 = input('Enter the name of team member ' + str(i) + ': ')
+        self.assertEqual(deliverable_1.option_c(self)return_to_menu()
+        
+        
         
 if __name__ == '__main__':
     unittest.main()
-    projectTitle = str(input('Enter the project name: \033[4m\0'))
-
-  
