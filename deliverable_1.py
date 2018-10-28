@@ -47,9 +47,12 @@ def option_q():
   exit()
 
 def return_to_menu():
-  back = input('Press <Enter> to return to the main menu: _')
-  if back == '':
-    menu()
+  while True:
+    back = input('Press <Enter> to return to the main menu: _')
+    if back != '':
+      print('Try again')
+    else:
+      menu()
   
 def menu():
   #The function for menu
