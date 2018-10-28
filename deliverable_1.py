@@ -12,26 +12,19 @@ def option_a():
 def option_c():
   #Option C creates a new project
   #Project Title variable takes in alphanumeric characters
-  projectTitle = str(input('Enter the project name: \033[4m\0'))
+  projectTitle = str(input('Enter the project name: '))
 
   #Only accept numbers (more than 2) for teamNumber
   while True:
-    try:
-      teamNumber = int(input('\033[0mEnter the number of team members: \033[4m\0'))
-      if teamNumber < 0:
-        raise ValueError
-      elif teamNumber < 3:
-      	print('Try again; only teams of more than 2 are allowed')
-      else:
-        print('\033[0m \n')
-        break
-    except ValueError:
-      print('Try again')
+    teamNumber = int(input('Enter the number of team members: '))
+    if teamNumber < 3:
+      print('Try again; only teams of more than 2 are allowed')
+    else:
+      break
 
   #Accept alphanumeric characters for team member names
   for i in range(1,teamNumber+1):
-    input('Enter the name of team member ' + str(i) + ': ' + '\033[4m\0')
-    print('\033[0m', end='')
+    input('Enter the name of team member ' + str(i) + ': ')
   return_to_menu()
 
 def option_s():
@@ -48,7 +41,7 @@ def option_q():
 
 def return_to_menu():
   while True:
-    back = input('Press <Enter> to return to the main menu: _')
+    back = input('Press <Enter> to return to the main menu: ')
     if back != '':
       print('Try again')
     else:
