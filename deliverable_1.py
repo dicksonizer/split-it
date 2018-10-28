@@ -4,9 +4,9 @@ Split-it Deliverable 1
 
 def option_a():
   #Option A prints the description of the app
-  print("\nSplit-it is a Fair Grade Allocator that determines the grade of each individual to a" 
-        "group project. The purpose of the application is to help teams allocate the credit for"
-        "a project so that all parties are satisfied with the outcome.\n")
+  print('\nSplit-it is a Fair Grade Allocator that determines the grade of each individual to a' 
+        'group project. The purpose of the application is to help teams allocate the credit for'
+        'a project so that all parties are satisfied with the outcome.\n')
   return_to_menu()
 
 def option_c():
@@ -41,7 +41,7 @@ def option_q():
 
 def return_to_menu():
   while True:
-    back = input('Press <Enter> to return to the main menu: ')
+    back = input('Press <Enter> to return to the main menu:')
     if back != '':
       print('Try again')
     else:
@@ -49,12 +49,12 @@ def return_to_menu():
   
 def menu():
   #The function for menu
-  print("\nWelcome to Split-it\n"
-    	"\n\tAbout\t\t\t(A)"
-    	"\n\tCreate Project\t\t(C)"
-  		"\n\tEnter Votes\t\t(V)"
-  		"\n\tShow Project\t\t(S)"
-  		"\n\tQuit\t\t\t(Q)\n")
+  print('\nWelcome to Split-it\n'
+    	'\n\tAbout\t\t\t(A)'
+    	'\n\tCreate Project\t\t(C)'
+  		'\n\tEnter Votes\t\t(V)'
+  		'\n\tShow Project\t\t(S)'
+  		'\n\tQuit\t\t\t(Q)\n')
   
   option = str(input('\tPlease choose and option and press <Enter>: '))
 
