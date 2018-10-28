@@ -5,8 +5,8 @@ Split-it Deliverable 1
 def option_a():
   #Option A prints the description of the app
   print('\nSplit-it is a Fair Grade Allocator that determines the grade of each individual to a' 
-        'group project. The purpose of the application is to help teams allocate the credit for'
-        'a project so that all parties are satisfied with the outcome.\n')
+        ' group project. The purpose of the application is to help teams allocate the credit for'
+        ' a project so that all parties are satisfied with the outcome.\n')
   return_to_menu()
 
 def option_c():
@@ -44,6 +44,7 @@ def option_q():
   exit()
 
 def return_to_menu():
+  #Return to menu function used in option_a and option_c
   while True:
     back = input('Press <Enter> to return to the main menu:')
     if back != '':
