@@ -1,5 +1,7 @@
 """
 Split-it Deliverable 1
+Group D
+Github Link: https://github.com/dicksonizer/split-it
 """
 
 def option_a():
@@ -12,7 +14,7 @@ def option_a():
 def option_c():
   #Option C creates a new project
   #Project Title variable takes in alphanumeric characters
-  projectTitle = str(input('Enter the project name: '))
+  projectTitle = str(input('\nEnter the project name: '))
 
   #Only accept integers (more than 2) for teamNumber
   while True:
@@ -24,11 +26,12 @@ def option_c():
         break
     except ValueError:
       print('Try again: you must input a number')
-      pass
+  print('\n')  
 
   #Accept alphanumeric characters for team member names
   for i in range(1,teamNumber+1):
-    input('Enter the name of team member ' + str(i) + ': ')
+    input('\tEnter the name of team member ' + str(i) + ': ')
+  print('\n')
   return_to_menu()
 
 def option_s():
@@ -46,24 +49,24 @@ def option_q():
 def return_to_menu():
   #Return to menu function used in option_a and option_c
   while True:
-    back = input('Press <Enter> to return to the main menu:')
+    back = input('Press <Enter> to return to the main menu: ')
     if back != '':
-      print('Try again')
+      print('Wrong input, try again')
     else:
       menu()
   
 def menu():
   #The function for menu
   print('\nWelcome to Split-it\n'
-    	'\n\tAbout\t\t\t(A)'
-    	'\n\tCreate Project\t\t(C)'
-  		'\n\tEnter Votes\t\t(V)'
-  		'\n\tShow Project\t\t(S)'
-  		'\n\tQuit\t\t\t(Q)\n')
+        '\n\tAbout\t\t(A)'
+        '\n\tCreate Project\t(C)'
+        '\n\tEnter Votes\t(V)'
+        '\n\tShow Project\t(S)'
+        '\n\tQuit\t\t(Q)\n')
   
-  option = str(input('\tPlease choose and option and press <Enter>: '))
+  option = str(input('\tPlease choose an option and press <Enter>: '))
 
-  # Accept lowercase and uppercase variants
+  # Accept either lowercase or uppercase variants
   if option == 'A' or option == 'a':
     option_a()
   elif option == 'C' or option == 'c':
