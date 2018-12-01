@@ -4,6 +4,13 @@ from Person_class import Person
 MENU_CHOICES = ['A', 'C', 'V', 'S', 'Q']
 projectDict = {}
 
+def about() :
+		aboutString = ("\n\nWelcome to Spliddit. "
+									 "This application will allocate grades to "
+									 "project participants based of the votes of their "
+									 "peers.\n")
+		print(aboutString)
+
 def printMenu():
 		menuString = ("\nWelcome to Spliddit:\n\n"
 								 "\tAbout (A)\n"
@@ -13,13 +20,7 @@ def printMenu():
 								 "\tQuit (Q)")
 		print(menuString)
 
-def about() :
-		aboutString = ("\n\nWelcome to Spliddit. "
-									 "This application will allocate grades to "
-									 "project participants based of the votes of their "
-									 "peers.\n")
-		print(aboutString)
-
+#Function to validate user input for menu choices
 def isValidOption(option):
 		if len(option.strip()) == 0:
 				return False
@@ -27,7 +28,8 @@ def isValidOption(option):
 				return True
 		else:
 				return False
-			
+	
+#Function to take input from user for menu choices
 def getOption():  
 		option = '*'
 		
@@ -37,6 +39,7 @@ def getOption():
 	 
 		return option.upper()
 
+#Function to create project. Project objects are pushed in projectDict with its title being the key and object being the value
 def createProject():
 	projectTitle = input(str('Enter Project title: '))
 	
@@ -79,28 +82,30 @@ def createProject():
 def setVotes():
 	#while len(projectDict) > 0
 	projectName = input("Enter the project name from the following list: " + str(",".join("{}".format(k)for k in projectDict.keys())) + "\nEnter Project Title: ")
-	for key in projectDict.keys():
-		if projectName != key:
-			print(("\n\t\tMake sure to input one of the following projects " + str(",".join("{}".format(k)for k in projectDict.keys()))))
-			setVotes() #bad recursion
-		else:
-			names = projectDict[key].team
-			for i in range(len(names)):
-				exclude = names[i]
-				tempDict = {}
-				for j in names:
-					if j == exclude:
-						pass
-					else:
-						point = int(input("Enter " + str(names[i]) + "\'s points for " + str(j) + ": "))
-						tempDict[str(j)] = point
-				if sum(tempDict.values()) == 100:
-					for key, values in tempDict.items():
-						names[i].addVote(key,values)
-			for k in names:
-				print("This is the id of person after votes is added",id(k),k.asdict())
 
-			print("Unfortunately, the dict of member isn't shown here, but we can modify it",projectDict)
+	while projectName not in projectDict.keys():
+		print("\n\t\tThe project you have entered is not found, please try again.")
+
+		projectName = input("Enter the project name from the following list: " + str(",".join("{}".format(k)for k in projectDict.keys())) + "\nEnter Project Title: ")
+
+		
+	names = projectDict[projectName].team
+	for i in range(len(names)):
+		exclude = names[i]
+		tempDict = {}
+		for j in names:
+			if j == exclude:
+				pass
+			else:
+				point = int(input("Enter " + str(names[i]) + "\'s points for " + str(j) + ": "))
+				tempDict[str(j)] = point
+		if sum(tempDict.values()) == 100:
+			for key, values in tempDict.items():
+				names[i].addVote(key,values)
+	for k in names:
+		print("This is the id of person after votes is added",id(k),k.asdict())
+
+	print("Unfortunately, the dict of member isn't shown here, but we can modify it",projectDict)
 
 def main() :
 
