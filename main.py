@@ -76,7 +76,7 @@ def createProject():
 
 		while Project.isValidName(personName) == False or Project.isInTeam(personName, tempTeam) == True:
 			print(('\n\t\tThe name must be more than {} but less than {} characters long,'
-						 ' cannot contain punctuations and cannot be repeated').format(Project.MINIMUM_NAME_LENGTH - 1,
+						 ' alphabetic and cannot be repeated.').format(Project.MINIMUM_NAME_LENGTH - 1,
 																						Project.MAXIMUM_NAME_LENGTH + 1))
 			personName = input('\tEnter name of team member {}: '.format(i+1))
 	 
@@ -85,7 +85,7 @@ def createProject():
 		team.append(person)
 		#The line of code below was used during testing to compare the ID of person objects 
 		#before and after adding votes
-		# print('This is the id of person created in Option C', id(person),person.asdict())
+		# print('This is the id of person created in Option C', id(person),person.asDict())
 			
 	project = Project(projectTitle, teamSize, team) 
 	projectDict[project.title] = project
@@ -148,7 +148,7 @@ def addPoints(projectName):
 	print('Person object in project now contain votes:')
 	for personObject in names:
 		print('' + personObject.name + '\'s object is: ', end = '')
-		print(personObject.asdict())
+		print(personObject.asDict())
 
 
 def main() :

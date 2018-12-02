@@ -10,7 +10,7 @@ class Person:
   def __repr__(self):
     return self.name
 
-  def asdict(self):
+  def asDict(self):
     return {'Name': self.name, 'Votes': self.votes}
 
   @property
