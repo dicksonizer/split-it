@@ -29,7 +29,7 @@ class Project:
 		if Project.isValidName(titleName):
 			self._title = titleName
 		else:
-			raise ValueError('you are an idiot')
+			raise ValueError('Wrong input, try again')
 
 	def isValidName(theString):
 		return theString.isalpha() == True and len(theString) >= Project.MINIMUM_NAME_LENGTH and len(theString) <= Project.MAXIMUM_NAME_LENGTH
