@@ -28,5 +28,5 @@ class TestProject_class(unittest.TestCase):
 		assertFalse(theSize(' ', '4'))
 
 	def test_isInteger(self, number):
-		assertTrue(number(4. 3. 2))
+		assertTrue(number(4, 3, 2))
 		assertFalse(number('', ' ', '4'))
