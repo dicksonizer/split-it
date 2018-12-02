@@ -80,15 +80,18 @@ def createProject():
 	print(projectDict)
 
 def setVotes():
-	#while len(projectDict) > 0
+	#While len(projectDict) < 1:
+	#	print("Please create a project before assigning votes")
+
 	projectName = input("Enter the project name from the following list: " + str(",".join("{}".format(k)for k in projectDict.keys())) + "\nEnter Project Title: ")
 
 	while projectName not in projectDict.keys():
 		print("\n\t\tThe project you have entered is not found, please try again.")
 
-		projectName = input("Enter the project name from the following list: " + str(",".join("{}".format(k)for k in projectDict.keys())) + "\nEnter Project Title: ")
+		projectName = input("Enter the project name from the following list: " + str(", ".join("{}".format(k)for k in projectDict.keys())) + "\nEnter Project Title: ")
+	addingPoints(projectName)
 
-		
+def addingPoints(projectName):
 	names = projectDict[projectName].team
 	for i in range(len(names)):
 		exclude = names[i]
@@ -97,11 +100,16 @@ def setVotes():
 			if j == exclude:
 				pass
 			else:
-				point = int(input("Enter " + str(names[i]) + "\'s points for " + str(j) + ": "))
+				point = input("Enter " + str(names[i]) + "\'s points for " + str(j) + ": ")
+				while Project.isInteger(point) == False:
+					print("Please input a number")
+					point = input("Enter " + str(names[i]) + "\'s points for " + str(j) + ": ")
 				tempDict[str(j)] = point
-		if sum(tempDict.values()) == 100:
-			for key, values in tempDict.items():
-				names[i].addVote(key,values)
+				for key, values in tempDict.items():
+					names[i].addVote(key,values)
+		#if sum(tempDict.values()) == 100:
+			#for key, values in tempDict.items():
+				#names[i].addVote(key,values)
 	for k in names:
 		print("This is the id of person after votes is added",id(k),k.asdict())
 
