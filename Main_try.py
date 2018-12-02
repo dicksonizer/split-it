@@ -100,16 +100,21 @@ def addingPoints(projectName):
 			if j == exclude:
 				pass
 			else:
-				point = input("Enter " + str(names[i]) + "\'s points for " + str(j) + ": ")
+				point = int(input("Enter " + str(names[i]) + "\'s points for " + str(j) + ": "))
 				while Project.isInteger(point) == False:
 					print("Please input a number")
-					point = input("Enter " + str(names[i]) + "\'s points for " + str(j) + ": ")
+					point = int(input("Enter " + str(names[i]) + "\'s points for " + str(j) + ": "))
 				tempDict[str(j)] = point
-				for key, values in tempDict.items():
-					names[i].addVote(key,values)
-		#if sum(tempDict.values()) == 100:
-			#for key, values in tempDict.items():
-				#names[i].addVote(key,values)
+				if len(tempDict) == ((len(names)) - 1):
+					if (sum(tempDict.values())) != 100:
+						print("Please ensure your votes add up to 100")
+						addingPoints(projectName)
+					else:
+						continue
+				else:
+					continue
+		for key, values in tempDict.items():
+			names[i].addVote(key,values)
 	for k in names:
 		print("This is the id of person after votes is added",id(k),k.asdict())
 
