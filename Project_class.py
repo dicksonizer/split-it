@@ -31,25 +31,13 @@ class Project:
 		else:
 			raise ValueError('you are an idiot')
 
-	#Is this ok? _ or not
-	# def getTitle(self):
-	# 	return self.title
-
-	#order of this?
 	def isValidName(theString):
 		return theString.isalpha() == True and len(theString) >= Project.MINIMUM_NAME_LENGTH and len(theString) <= Project.MAXIMUM_NAME_LENGTH
-
-	def isInTeam(name, theList):
-		if name in theList:
-			return True
-		else:
-			return False
 
 	@property
 	def size(self):
 		return self._size
 
-	#is this raise necessary?
 	@size.setter
 	def size(self, teamSize):
 		if Project.isValidTeamSize(teamSize):
@@ -57,7 +45,6 @@ class Project:
 		else:
 			raise ValueError('Wrong Input')
 
-	@staticmethod
 	def isValidTeamSize(theSize):
 		return Project.isInteger(theSize) and int(theSize) >= Project.MINIMUM_TEAM_SIZE and int(theSize) <= Project.MAXIMUM_TEAM_SIZE
 
@@ -77,6 +64,10 @@ class Project:
 		if len(members) == self.size:
 			self._team = members
 
-	def getTeam(self):
-		return self.team
+	
+	def isInTeam(name, theList):
+		if name in theList:
+			return True
+		else:
+			return False
 
