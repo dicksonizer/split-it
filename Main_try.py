@@ -1,3 +1,10 @@
+"""
+Split-it Deliverable 1
+Group D
+Github Link: https://github.com/dicksonizer/split-it
+
+"""
+
 from Project_class import Project
 from Person_class import Person
 
@@ -5,20 +12,30 @@ MENU_CHOICES = ['A', 'C', 'V', 'S', 'Q']
 projectDict = {}
 
 def about() :
-		aboutString = ("\n\nWelcome to Spliddit. "
+		aboutString = ("\n\nWelcome to Split-it. "
 									 "This application will allocate grades to "
 									 "project participants based of the votes of their "
 									 "peers.\n")
 		print(aboutString)
+		return_to_menu()
 
 def printMenu():
-		menuString = ("\nWelcome to Spliddit:\n\n"
-								 "\tAbout (A)\n"
-								 "\tCreate Project (C)\n"
-								 "\tEnter Votes (V)\n"
-								 "\tShow Project (S) \n"
-								 "\tQuit (Q)")
+		menuString = ("Welcome to Split-it:\n\n"
+								 "\tAbout \t\t(A)\n"
+								 "\tCreate Project \t(C)\n"
+								 "\tEnter Votes \t(V)\n"
+								 "\tShow Project \t(S) \n"
+								 "\tQuit \t\t(Q)")
 		print(menuString)
+
+def return_to_menu():
+  #Return to menu function used in option_a and option_c
+  while True:
+    back = input('Press <Enter> to return to the main menu: ')
+    if back != '':
+      print('Wrong input, try again')
+    else:
+      main()
 
 #Function to validate user input for menu choices
 def isValidOption(option):
@@ -29,7 +46,7 @@ def isValidOption(option):
 		else:
 				return False
 	
-#Function to take input from user for menu choices
+#Function to take input from user for menu choices. Returns user input to uppercase
 def getOption():  
 		option = '*'
 		
@@ -39,7 +56,8 @@ def getOption():
 	 
 		return option.upper()
 
-#Function to create project. Project objects are pushed in projectDict with its title being the key and object being the value
+"""Function to create project. Project objects are constructed with title, team size and list of team members.
+Project objects are then pushed in projectDict with its title being the key and object being the value. """
 def createProject():
 	projectTitle = input(str('Enter Project title: '))
 	
@@ -69,19 +87,16 @@ def createProject():
 			personName = input("\tEnter name of team member {}: ".format(i+1))
 	 
 		person = Person(personName)
-		print("This is the id of person created in Option_C", id(person),person.asdict())
+		# print("This is the id of person created in Option_C", id(person),person.asdict())
 		team.append(person)
 	
 	project = Project(projectTitle, teamSize, team) 
-	#Make a method in project for getTitle
-	#Then append {Title: Project Object}
 	projectDict[project.title] = project
-	print(project)
-	print(projectDict)
+	print(projectDict,"\n")
+	return_to_menu()
 
+#Prompt user to enter project name and allocate votes to members
 def setVotes():
-	#While len(projectDict) < 1:
-	#	print("Please create a project before assigning votes")
 
 	projectName = input("Enter the project name from the following list: " + str(",".join("{}".format(k)for k in projectDict.keys())) + "\nEnter Project Title: ")
 
@@ -89,26 +104,38 @@ def setVotes():
 		print("\n\t\tThe project you have entered is not found, please try again.")
 
 		projectName = input("Enter the project name from the following list: " + str(", ".join("{}".format(k)for k in projectDict.keys())) + "\nEnter Project Title: ")
-	addingPoints(projectName)
+	print("There are " + projectDict[projectName].size + " team members.\n")
+	addPoints(projectName)
 
-def addingPoints(projectName):
+#Add points for each member
+def addPoints(projectName):
+	#Create a list that contains the array of Person objects in the corresponding project
 	names = projectDict[projectName].team
+
 	for i in range(len(names)):
+		#Created variable exclude so that people can't vote for themselves
 		exclude = names[i]
+		#Created tempDict to store 
 		tempDict = {}
 		for j in names:
 			if j == exclude:
 				pass
 			else:
+				print("Enter " + str(names[i]) + "\'s votes, points must add up to 100:\n")
+				#Prompt user to input point for his/her team members and add to tempDict
 				point = int(input("Enter " + str(names[i]) + "\'s points for " + str(j) + ": "))
+
 				while Project.isInteger(point) == False:
 					print("Please input a number")
 					point = int(input("Enter " + str(names[i]) + "\'s points for " + str(j) + ": "))
+
 				tempDict[str(j)] = point
+
+				
 				if len(tempDict) == ((len(names)) - 1):
 					if (sum(tempDict.values())) != 100:
 						print("Please ensure your votes add up to 100")
-						addingPoints(projectName)
+						addPoints(projectName)
 					else:
 						continue
 				else:
@@ -119,6 +146,7 @@ def addingPoints(projectName):
 		print("This is the id of person after votes is added",id(k),k.asdict())
 
 	print("Unfortunately, the dict of member isn't shown here, but we can modify it",projectDict)
+	return_to_menu()
 
 def main() :
 

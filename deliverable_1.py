@@ -2,7 +2,6 @@
 Split-it Deliverable 1
 Group D
 Github Link: https://github.com/dicksonizer/split-it
-comment
 """
 
 def option_a():
