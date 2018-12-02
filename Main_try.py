@@ -98,7 +98,9 @@ def createProject():
 
 #Prompt user to enter project name and allocate votes to members
 def setVotes():
-
+	if not projectDict:
+		print("No project objects exist!\n")
+		return_to_menu()
 	projectName = input("Choose a project name from the following list: " + str(",".join("{}".format(k)for k in projectDict.keys())) + "\nEnter Project Title: ")
 
 	while projectName not in projectDict.keys():
