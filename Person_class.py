@@ -31,7 +31,10 @@ class Person:
 
   @votes.setter
   def votes(self, points):
-    self._votes = points
+    if len(points) == 0:
+      self._votes = points
+    else:
+      raise ValueError("Wrong input, try again")
 
   def addVote(self, member, point):
     self._votes[member] = point
