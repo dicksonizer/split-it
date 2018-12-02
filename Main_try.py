@@ -74,7 +74,8 @@ def createProject():
 		print(("\n\t\tThe team size must be more than {} and less than {}. "
 							 "Try again.").format(Project.MINIMUM_TEAM_SIZE - 1, Project.MAXIMUM_TEAM_SIZE + 1))
 		teamSize = input('Enter the number of team members: ')
-	
+	print()
+
 	team = []
 	for i in range(int(teamSize)):
 		personName = input("\tEnter name of team member {}: ".format(i+1))
@@ -92,18 +93,18 @@ def createProject():
 	
 	project = Project(projectTitle, teamSize, team) 
 	projectDict[project.title] = project
-	print(projectDict,"\n")
+	print("Project created:",projectDict,"\n")
 	return_to_menu()
 
 #Prompt user to enter project name and allocate votes to members
 def setVotes():
 
-	projectName = input("Enter the project name from the following list: " + str(",".join("{}".format(k)for k in projectDict.keys())) + "\nEnter Project Title: ")
+	projectName = input("Choose a project name from the following list: " + str(",".join("{}".format(k)for k in projectDict.keys())) + "\nEnter Project Title: ")
 
 	while projectName not in projectDict.keys():
 		print("\n\t\tThe project you have entered is not found, please try again.")
 
-		projectName = input("Enter the project name from the following list: " + str(", ".join("{}".format(k)for k in projectDict.keys())) + "\nEnter Project Title: ")
+		projectName = input("Choose a project name from the following list: " + str(", ".join("{}".format(k)for k in projectDict.keys())) + "\nEnter Project Title: ")
 	print("There are " + projectDict[projectName].size + " team members.\n")
 	addPoints(projectName)
 
@@ -117,36 +118,38 @@ def addPoints(projectName):
 		exclude = names[i]
 		#Created tempDict to store 
 		tempDict = {}
-		for j in names:
-			if j == exclude:
-				pass
-			else:
-				print("Enter " + str(names[i]) + "\'s votes, points must add up to 100:\n")
-				#Prompt user to input point for his/her team members and add to tempDict
-				point = int(input("Enter " + str(names[i]) + "\'s points for " + str(j) + ": "))
+		print("Enter " + str(names[i]) + "\'s votes, points must add up to 100:\n")
 
-				while Project.isInteger(point) == False:
-					print("Please input a number")
-					point = int(input("Enter " + str(names[i]) + "\'s points for " + str(j) + ": "))
+		successful = False
+		while not successful:
+			for j in names:
+				if j == exclude:
+					pass
+				else:
+					#Prompt user to input point for his/her team members and add to tempDict
+					point = input("Enter " + str(names[i]) + "\'s points for " + str(j) + ": ")
 
-				tempDict[str(j)] = point
+					while Project.isInteger(point) == False:
+						print("Please input a number")
+						point = input("Enter " + str(names[i]) + "\'s points for " + str(j) + ": ")
+
+					tempDict[str(j)] = int(point)
 
 				
-				if len(tempDict) == ((len(names)) - 1):
-					if (sum(tempDict.values())) != 100:
-						print("Please ensure your votes add up to 100")
-						addPoints(projectName)
-					else:
-						continue
-				else:
-					continue
-		for key, values in tempDict.items():
-			names[i].addVote(key,values)
-	for k in names:
-		print("This is the id of person after votes is added",id(k),k.asdict())
+			if len(tempDict) == ((len(names)) - 1) and (sum(tempDict.values()) == 100):
+					for key, values in tempDict.items():
+						names[i].addVote(key,values)
+					successful = True
+			else:					
+				print("\nPoints you entered do not add up to 100, try again!\n")
+		print()	
+	
+	#Check that person objects are assigned votes and the person who gave the vote
+	for personObject in names:
+		print("Person object in project now contain votes:",personObject.asdict())
 
-	print("Unfortunately, the dict of member isn't shown here, but we can modify it",projectDict)
 	return_to_menu()
+
 
 def main() :
 
