@@ -1,0 +1,24 @@
+# Complete the pressAForCapsLock function below.
+def pressAForCapsLock(message):
+    result = ''
+    #Status is false when capslock is turned off, and vice versa
+    status = False
+    for i in range(len(message)):
+        #Toggle status between T and F if a or A is clicked
+        if message[i] == 'a' or message[i] == 'A':
+            if status:
+                status = False
+            else:
+                status = True
+        
+        if status:
+            if message[i] == 'a' or message[i] == 'A':
+                continue
+            else:
+                result = result + message[i].upper()
+        elif message[i] == 'a':
+            continue
+        else:
+            result = result + message[i]
+    return result
+        
