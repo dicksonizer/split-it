@@ -54,8 +54,10 @@ class Project:
 			return True
 		except ValueError:
 			return False
+
 	def isPositive(number):
-		return Project.isInteger(number) and int(number) >= 0
+		return Project.isInteger(number) and int(number) > 0
+
 
 	@property
 	def team(self):

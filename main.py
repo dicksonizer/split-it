@@ -7,6 +7,7 @@ Adapted on Rae Harbird's code, Deliverable 1 Spliddit
 
 from Project_class import Project
 from Person_class import Person
+import os
 
 MENU_CHOICES = ['A', 'C', 'V', 'S', 'Q']
 projectDict = {}
@@ -132,7 +133,7 @@ def addPoints(projectName):
 					point = input('Enter ' + str(names[i]) + '\'s points for ' + str(j) + ': ')
 
 					while Project.isPositive(point) == False:
-						print('Please input a number')
+						print('Please input a positive number')
 						point = input('Enter ' + str(names[i]) + '\'s points for ' + str(j) + ': ')
 
 					tempDict[str(j)] = int(point)
@@ -198,75 +199,87 @@ def showVotes():
 	
 
 def readFile(inputFile):
-	team = []
-	newDict = {}
-	for line in inputFile:
-		line = line.rstrip()
-		word = line.split(',')
-		flagDict = {}
-		# print(word) --> gets array of each line
 
-		for i in range(len(word)):
-			projectTitle = word[0]
-			teamSize = word[1]
-		for j in range(int(teamSize)):
-			person = Person(str(word[2+j]))
-			team.append(person)
-		project = Project(projectTitle, teamSize, team) 
+	try:
 		team = []
-		projectDict[project.title] = project
-		print('Project created:',projectDict,'\n')
-
-		# for key in projectDict.keys():
-		interval = 5+2*(int(teamSize) - 3)
-		counter = 0
-		for k in range(2+int(teamSize),len(word),interval):
-			for l in range(k,k+interval-1,2):
-				tempVar = projectDict[word[0]].team[counter]
-				tempVar.addVote(word[l+1],word[l+2])
-				flagDict[word[l+1]] = word[l+2]
-				print(word[l+1],word[l+2])
-			print("printing flagDict before",flagDict)
-			newDict[tempVar] = flagDict
+		newDict = {}
+		for line in inputFile:
+			line = line.rstrip()
+			word = line.split(',')
 			flagDict = {}
-			counter += 1
-			print("printing newDict before",newDict)
+			# print(word) --> gets array of each line
 
-	#This for loop creates a dictionary of {Person instance : Votes Received}
-	print("printing newDict",newDict)
-	finalDict = {}
+			for i in range(len(word)):
+				projectTitle = word[0]
+				teamSize = word[1]
+			for j in range(int(teamSize)):
+				person = Person(str(word[2+j]))
+				team.append(person)
+			project = Project(projectTitle, teamSize, team) 
+			team = []
+			projectDict[project.title] = project
+			print('Project created:',projectDict,'\n')
 
-	for key,value in newDict.items():
-		for name,votes in value.items():
-			try:
-				finalDict[str(name)].append(int(votes))
-			except:
-				temparr = [int(votes)]
-				finalDict[str(name)]= temparr
-	print("printing finalDict",finalDict)
+			# for key in projectDict.keys():
+			interval = 5+2*(int(teamSize) - 3)
+			counter = 0
+			for k in range(2+int(teamSize),len(word),interval):
+				for l in range(k,k+interval-1,2):
+					tempVar = projectDict[word[0]].team[counter]
+					tempVar.addVote(word[l+1],word[l+2])
+					flagDict[word[l+1]] = int(word[l+2])
+					print(word[l+1],word[l+2])
+				print("printing flagDict before",flagDict.values())
+				if sum(flagDict.values()) == 100:
+					newDict[tempVar] = flagDict
+					flagDict = {}
+				else:
+					raise Exception('Votes in your input file do not add up to 100! Please use a different input file')
+				counter += 1
+				print("printing newDict before",newDict)
 
-	"""------MAKE A FUNCTION -------"""
-	#This for loop uses the above dictionary to assign Person instance --> Votes Received
-	for key in projectDict.keys():
-		names = projectDict[key].team
-		for personInstance in names:
-			for key, values in finalDict.items():
-				if key == str(personInstance):
-					print('printing vote received')
-					print(key,values)
-					personInstance.addVoteReceived(key,values)
+		#This for loop creates a dictionary of {Person instance : Votes Received}
+		print("printing newDict",newDict)
+		finalDict = {}
+		for key,value in newDict.items():
+			for name,votes in value.items():
+				try:
+					finalDict[str(name)].append(int(votes))
+				except:
+					temparr = [int(votes)]
+					finalDict[str(name)]= temparr
+		print("printing finalDict",finalDict)
 
-	print('Person object in project now contain votes:')
-	for key in projectDict.keys():
-		names = projectDict[key].team
-		for personInstance in names:
-			personInstance.calculateScore()
-			print('' + personInstance.name + '\'s object is: ', end = '')
-			print(personInstance.asDict())
+		"""------MAKE A FUNCTION -------"""
+		#This for loop uses the above dictionary to assign Person instance --> Votes Received
+		for key in projectDict.keys():
+			names = projectDict[key].team
+			for personInstance in names:
+				for key, values in finalDict.items():
+					if key == str(personInstance):
+						print('printing vote received')
+						print(key,values)
+						personInstance.addVoteReceived(key,values)
 
+		print('Person object in project now contain votes:')
+		for key in projectDict.keys():
+			names = projectDict[key].team
+			for personInstance in names:
+				personInstance.calculateScore()
+				print('' + personInstance.name + '\'s object is: ', end = '')
+				print(personInstance.asDict())
+	except:
+		raise Exception('Your input file is invalid. Please use a different file')
 
 
 def writeFile(output):
+	#Validation: allow to quit only if project is created AND votes are entered into it
+	for key,value in projectDict.items():
+		for member in value.team:
+			if len(member.votes.values()) == 0:
+					print('You have not entered votes for ' + key + ' project ' + 'Redirecting you to enter votes')
+					addPoints(key)
+
 
 	tempArr = []
 	outputStr = ''
@@ -287,9 +300,12 @@ def writeFile(output):
 	print(outputStr, end="", file=output)
 
 def main() :
-		inFile = open("projectInfo.txt", "w+")
-		inFile = open("projectInfo.txt", "r")		
-		readFile(inFile)
+		try:
+		    inFile = open("projectInfo.txt", "r")	
+		    readFile(inFile)
+		except IOError:
+		    inFile = open("projectInfo.txt", "w")	
+		
 		option = '*'
 		
 		while option != 'Q':
