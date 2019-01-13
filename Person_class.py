@@ -45,21 +45,9 @@ class Person:
     return self._score
 
   def calculateScore(self):
-    #VALIDATE IF ADDVOTES NOT USED / NO VOTES
     for key,value in self.votesForMe.items():
       tempPoint = round((1 / (1 + ((100-value[0])/value[0]) + ((100-value[1]))/value[1])) * 100)
     self.score = tempPoint
-
-
-    # for key,value in self.asDict().items():
-    #   if key == 'Votes':
-    #     for name,votes in value.items():
-    #       try:
-    #         self._score[str(name)].append(int(votes))
-    #       except:
-    #         temparr = [int(votes)]
-    #         self.score[str(name)]= temparr
-    # print(self.score)
 
   def addVote(self, member, point):
     self._votes[member] = point

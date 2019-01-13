@@ -304,6 +304,12 @@ def writeFile(output):
 
 	print(outputStr, end="", file=output)
 
+def pressEnter():
+	temp = input('\nPress <Enter> to return to the main menu: ')
+	while temp != '':
+		temp = input('Press <Enter> to return to the main menu: ')
+	print()
+
 def main() :
 		#If file exists, open and read file
 		#Else, create a new file
@@ -319,12 +325,16 @@ def main() :
 				option = getOption()        
 				if option == 'A':
 						about()
+						pressEnter()
 				elif option == 'C':
 						createProject()
+						pressEnter()
 				elif option == 'V':
 						setVotes()
+						pressEnter()
 				elif option == 'S':
-					showVotes()
+						showVotes()
+						pressEnter()
 
 		#When Q is entered, quit and write file
 		outFile = open("projectInfo.txt", "w")
