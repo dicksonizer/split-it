@@ -18,6 +18,7 @@ def about() :
 									 'project participants based of the votes of their '
 									 'peers.\n')
 		print(aboutString)
+		print(len(projectDict))
 
 def printMenu():
 		menuString = ('Welcome to Split-it:\n\n'
@@ -178,17 +179,16 @@ def addPoints(projectName):
 
 def showVotes():
 	#Validation: allow to show votes only if project is created AND votes are entered into it
-	for key,value in projectDict.items():
-		for member in value.team:
-			if len(member.votes.values()) == 0:
-					print('You have not entered votes for ' + key + ' project -> ' + 'Redirecting you to enter votes')
-					addPoints(key)
-					print('Redirecting back to option (S)')
-
-
 	if not projectDict:
-		print('No project objects exist!\n')
+		print('No project objects exist!\n')		
 	else:
+		for key,value in projectDict.items():
+			for member in value.team:
+				if len(member.votes.values()) == 0:
+						print('You have not entered votes for ' + key + ' project -> ' + 'Redirecting you to enter votes')
+						addPoints(key)
+						print('Redirecting back to option (S)')
+
 		projectName = input('Choose a project name from the following list: ' + 
 							str(','.join('{}'.format(k)for k in projectDict.keys())) + '\nEnter Project Title: ')
 
@@ -197,16 +197,17 @@ def showVotes():
 
 			projectName = input('Choose a project name from the following list: ' + 
 								str(', '.join('{}'.format(k)for k in projectDict.keys())) + '\nEnter Project Title: ')
-		print('\nThere are ' + projectDict[projectName].size + ' team members.\n')
+		print('There are ' + projectDict[projectName].size + ' team members.\n')
 
-	print('The point allocation based on votes is:\n')
 
-	names = projectDict[projectName].team
-	#This for loop calculates score of each person Instance
-	for personInstance in names:
-		personInstance.calculateScore()
-		print("\t" + str(personInstance) + ":" + "\t\t" + str(personInstance.score))
-	
+		print('The point allocation based on votes is:\n')
+
+		names = projectDict[projectName].team
+		 #This for loop calculates score of each person Instance
+		for personInstance in names:
+			personInstance.calculateScore()
+			print("\t" + str(personInstance) + ":" + "\t\t" + str(personInstance.score))
+		
 
 def readFile(inputFile):
 
@@ -310,10 +311,10 @@ def writeFile(output):
 
 def main() :
 		try:
-		    inFile = open("projectInfo.txt", "r")	
-		    readFile(inFile)
+			inFile = open("projectInfo.txt", "r")	
+			readFile(inFile)
 		except IOError:
-		    inFile = open("projectInfo.txt", "w")	
+			inFile = open("projectInfo.txt", "w")	
 		
 		option = '*'
 		
@@ -338,4 +339,3 @@ def main() :
 # Start the program
 if __name__ == '__main__':
 		main()
-
