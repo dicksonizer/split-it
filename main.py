@@ -131,7 +131,7 @@ def addPoints(projectName):
 					#Prompt user to input point for his/her team members and add to tempDict
 					point = input('Enter ' + str(names[i]) + '\'s points for ' + str(j) + ': ')
 
-					while Project.isInteger(point) == False:
+					while Project.isPositive(point) == False:
 						print('Please input a number')
 						point = input('Enter ' + str(names[i]) + '\'s points for ' + str(j) + ': ')
 
@@ -287,6 +287,7 @@ def writeFile(output):
 	print(outputStr, end="", file=output)
 
 def main() :
+		inFile = open("projectInfo.txt", "w+")
 		inFile = open("projectInfo.txt", "r")		
 		readFile(inFile)
 		option = '*'
