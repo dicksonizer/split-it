@@ -2,3 +2,6 @@ Apple,3,Xiang,Asim,Bogdan,Xiang,Asim,50,Bogdan,50,Asim,Xiang,35,Bogdan,65,Bogdan
 Cat,3,AAA,BBB,CCC,AAA,BBB,50,CCC,50,BBB,AAA,20,CCC,80,CCC,AAA,10,BBB,90
 Doggie,3,DDD,EEE,FFF,DDD,EEE,30,FFF,70,EEE,DDD,20,FFF,80,FFF,DDD,11,EEE,89
 NoVotes,3,Dog,Mom,Cat,Dog,Mom,30,Cat,70,Mom,Dog,20,Cat,80,Cat,Dog,30,Mom,70
+COMP,3,Rae,Susan,Jimmy,Rae,Susan,50,Jimmy,50,Susan,Rae,30,Jimmy,70,Jimmy,Rae,55,Susan,45
+FourPeople,4,uuu,yyy,ttt,rrr,uuu,yyy,20,ttt,20,rrr,60,yyy,uuu,30,ttt,30,rrr,40,ttt,uuu,33,yyy,33,rrr,34,rrr,uuu,33,yyy,33,ttt,34
+FivePeople,5,one,two,three,four,five,one,two,25,three,25,four,25,five,25,two,one,30,three,30,four,30,five,10,three,one,40,two,20,four,10,five,30,four,one,30,two,30,three,30,five,10,five,one,40,two,40,three,10,four,10

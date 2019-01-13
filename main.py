@@ -194,15 +194,23 @@ def showVotes():
 			projectName = input('Choose a project name from the following list: ' + 
 								str(', '.join('{}'.format(k)for k in projectDict.keys())) + '\nEnter Project Title: ')
 		print('There are ' + projectDict[projectName].size + ' team members.\n')
-
-
-		print('The point allocation based on votes is:\n')
-
 		names = projectDict[projectName].team
-		 #This for loop calculates score of each person instance
-		for personInstance in names:
-			personInstance.calculateScore()
-			print("\t" + str(personInstance) + ":" + "\t\t" + str(personInstance.score))
+		if int(projectDict[projectName].size) == 3:
+			print('The point allocation based on votes is:\n')
+
+			 #This for loop calculates score of each person instance
+			for personInstance in names:
+				personInstance.calculateScore()
+				print("\t" + str(personInstance) + ":" + "\t\t" + str(personInstance.score))
+		else:
+			print('This program does not support score calculation for team sizes bigger than 3.\n')
+			print('Printing ' + projectName + '\'s team members:')
+			for personInstance in names:
+				personInstance.calculateScore()
+				print('' + personInstance.name + '\'s object is: ', end = '')
+				print(personInstance.asDict())
+			print()
+
 		
 
 def readFile(inputFile):
