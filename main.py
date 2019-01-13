@@ -146,7 +146,6 @@ def addPoints(projectName):
 						flagDict[key] = values
 					successful = True
 					newDict[names[i]] = flagDict
-					# print(newDict)
 			else:					
 				print('\nPoints you entered do not add up to 100, try again!\n')
 		print()	
@@ -160,9 +159,7 @@ def addPoints(projectName):
 			except:
 				temparr = [int(votes)]
 				finalDict[str(name)]= temparr
-	# print(finalDict)
 
-	"""------MAKE A FUNCTION -------"""
 	#This for loop uses the above dictionary to assign Person instance --> Votes Received
 	for personInstance in names:
 		for key, values in finalDict.items():
@@ -178,7 +175,7 @@ def addPoints(projectName):
 	print()
 
 def showVotes():
-	#Validation: allow to show votes only if project is created AND votes are entered into it
+	#Validation: Allowed to show votes only if project is created AND votes are entered into it
 	if not projectDict:
 		print('No project objects exist!\n')		
 	else:
@@ -203,7 +200,7 @@ def showVotes():
 		print('The point allocation based on votes is:\n')
 
 		names = projectDict[projectName].team
-		 #This for loop calculates score of each person Instance
+		 #This for loop calculates score of each person instance
 		for personInstance in names:
 			personInstance.calculateScore()
 			print("\t" + str(personInstance) + ":" + "\t\t" + str(personInstance.score))
@@ -211,6 +208,8 @@ def showVotes():
 
 def readFile(inputFile):
 
+	#If file is in right format, then read the file and create person and project instances
+	#Else, raise an exception detailing file is in wrong format
 	try:
 		team = []
 		newDict = {}
@@ -218,38 +217,36 @@ def readFile(inputFile):
 			line = line.rstrip()
 			word = line.split(',')
 			flagDict = {}
-			# print(word) --> gets array of each line
 
+			#First two elements of a line are always projectTitle and teamSize
 			for i in range(len(word)):
 				projectTitle = word[0]
 				teamSize = word[1]
 			for j in range(int(teamSize)):
 				person = Person(str(word[2+j]))
 				team.append(person)
+
 			project = Project(projectTitle, teamSize, team) 
 			team = []
 			projectDict[project.title] = project
-			# print('Project created:',projectDict,'\n')
 
 			interval = 5+2*(int(teamSize) - 3)
 			counter = 0
+
+			#Traverse the line from third element onwards to add votes from file to person instances
 			for k in range(2+int(teamSize),len(word),interval):
 				for l in range(k,k+interval-1,2):
 					tempVar = projectDict[word[0]].team[counter]
 					tempVar.addVote(word[l+1],word[l+2])
 					flagDict[word[l+1]] = int(word[l+2])
-				# 	print(word[l+1],word[l+2])
-				# print("printing flagDict before",flagDict.values())
 				if sum(flagDict.values()) == 100:
 					newDict[tempVar] = flagDict
 					flagDict = {}
 				else:
 					raise Exception('Votes in your input file do not add up to 100! Please use a different input file')
 				counter += 1
-				# print("printing newDict before",newDict)
 
 		#This for loop creates a dictionary of {Person instance : Votes Received}
-		# print("printing newDict",newDict)
 		finalDict = {}
 		for key,value in newDict.items():
 			for name,votes in value.items():
@@ -258,19 +255,17 @@ def readFile(inputFile):
 				except:
 					temparr = [int(votes)]
 					finalDict[str(name)]= temparr
-		# print("printing finalDict",finalDict)
 
-		"""------MAKE A FUNCTION -------"""
 		#This for loop uses the above dictionary to assign Person instance --> Votes Received
 		for key in projectDict.keys():
 			names = projectDict[key].team
 			for personInstance in names:
 				for key, values in finalDict.items():
 					if key == str(personInstance):
-						# print('printing vote received')
-						# print(key,values)
 						personInstance.addVoteReceived(key,values)
 		print()
+
+		#For testing; Check that every person objects are assigned votes (and the person who voted)
 		for key in projectDict.keys():
 			names = projectDict[key].team
 			for personInstance in names:
@@ -283,7 +278,7 @@ def readFile(inputFile):
 
 
 def writeFile(output):
-	#Validation: allow to quit only if project is created AND votes are entered into it
+	#Validation: Allowed to quit (and hence write file) only if project is created AND votes are entered into it
 	for key,value in projectDict.items():
 		for member in value.team:
 			if len(member.votes.values()) == 0:
@@ -310,6 +305,8 @@ def writeFile(output):
 	print(outputStr, end="", file=output)
 
 def main() :
+		#If file exists, open and read file
+		#Else, create a new file
 		try:
 			inFile = open("projectInfo.txt", "r")	
 			readFile(inFile)
@@ -329,10 +326,9 @@ def main() :
 				elif option == 'S':
 					showVotes()
 
-		#Read File
+		#When Q is entered, quit and write file
 		outFile = open("projectInfo.txt", "w")
 		writeFile(outFile)
-		# writeFile():
 		print('\n\nWrote to projectInfo.txt; Bye, bye.')
 
 				
