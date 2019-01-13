@@ -112,12 +112,14 @@ def setVotes():
 def addPoints(projectName):
 	#Create a list that contains the list of Person objects in the corresponding project
 	names = projectDict[projectName].team
-
+	newDict = {}
+	#This for loop adds Person instance with the votes they given
 	for i in range(len(names)):
 		#Created variable exclude so that people can't vote for themselves
 		exclude = names[i]
 		#Created tempDict to store the votes given to one's teammates. 
 		tempDict = {}
+		flagDict = {}
 		print('Enter ' + str(names[i]) + '\'s votes, points must add up to 100:\n')
 
 		successful = False
@@ -139,16 +141,63 @@ def addPoints(projectName):
 			if len(tempDict) == ((len(names)) - 1) and (sum(tempDict.values()) == 100):
 					for key, values in tempDict.items():
 						names[i].addVote(key,values)
+						flagDict[key] = values
 					successful = True
+					newDict[names[i]] = flagDict
+					print(newDict)
 			else:					
 				print('\nPoints you entered do not add up to 100, try again!\n')
 		print()	
 	
+	#This for loop creates a dictionary of {Person instance : Votes Received}
+	finalDict = {}
+	for key,value in newDict.items():
+		for name,votes in value.items():
+			try:
+				finalDict[str(name)].append(int(votes))
+			except:
+				temparr = [int(votes)]
+				finalDict[str(name)]= temparr
+	print(finalDict)
+
+	#This for loop uses the above dictionary to assign Person instance --> Votes Received
+	for personInstance in names:
+		for key, values in finalDict.items():
+			if key == str(personInstance):
+				print(key,values)
+				personInstance.addVoteReceived(key,values)
+
 	#For testing; Check that every person objects are assigned votes (and the person who voted)
 	print('Person object in project now contain votes:')
-	for personObject in names:
-		print('' + personObject.name + '\'s object is: ', end = '')
-		print(personObject.asDict())
+	for personInstance in names:
+		print('' + personInstance.name + '\'s object is: ', end = '')
+		print(personInstance.asDict())
+
+def showVotes():
+	if not projectDict:
+		print('No project objects exist!\n')
+	else:
+		projectName = input('Choose a project name from the following list: ' + 
+							str(','.join('{}'.format(k)for k in projectDict.keys())) + '\nEnter Project Title: ')
+
+		while projectName not in projectDict.keys():
+			print('\n\t\tThe project you have entered is not found, please try again.')
+
+			projectName = input('Choose a project name from the following list: ' + 
+								str(', '.join('{}'.format(k)for k in projectDict.keys())) + '\nEnter Project Title: ')
+		print('\nThere are ' + projectDict[projectName].size + ' team members.\n')
+
+	print('The point allocation based on votes is:\n')
+
+	names = projectDict[projectName].team
+	#This for loop calculates score of each person Instance
+	for personInstance in names:
+		personInstance.calculateScore()
+		print("\t" + str(personInstance) + ":" + "\t\t" + str(personInstance.score))
+	
+
+
+
 
 
 def main() :
@@ -164,7 +213,9 @@ def main() :
 				elif option == 'V':
 						setVotes()
 				elif option == 'S':
-					print('\nNot implemented yet\n')
+					showVotes()
+
+		#Read File
 
 		print('\n\nBye, bye.')
 
@@ -172,3 +223,4 @@ def main() :
 # Start the program
 if __name__ == '__main__':
 		main()
+
