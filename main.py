@@ -196,12 +196,54 @@ def showVotes():
 		print("\t" + str(personInstance) + ":" + "\t\t" + str(personInstance.score))
 	
 
+# def writeFile():
+# 	outFile = open("projectInfo.txt", "a")
+
+# 	tempStr = ''
+# 	tempStr = 'C1-ENGS101P,3,Asim,Bogdan,Xiang,Xiang,Asim,50,Bogdan,50,Bogdan,Xiang,35,Asim,65,Asim,Bogdan,65,Xiang,35\n'
+# 	totalStr = tempStr + tempStr
+# 	print(totalStr, end="", file=outFile)
+
+def writeFile(output):
+	print(projectDict)
+
+	tempArr = []
+	outputStr = ''
+	for key,value in projectDict.items():
+		print(key,value)
+		tempArr.append(str(value.title))
+		tempArr.append(str(value.size))
+		for member in value.team:
+			tempArr.append(str(member))
+		for member in value.team:
+			tempArr.append(str(member.name))
+			for otherKey, otherValue in member.votes.items():
+				tempArr.append(str(otherKey))
+				tempArr.append(str(otherValue))
+		tempStr = ",".join(tempArr)
+		tempArr = []
+		outputStr = outputStr + tempStr + '\n'
 
 
 
+
+	# 		tempArr.append(str(value.title))
+	# 		tempArr.append(str(value.size))
+	# 		for member in value.team:
+	# 			tempArr.append(str(member))
+	# 		for member in value.team:
+	# 			tempArr.append(str(member.name))
+	# 			for otherKey, otherValue in member.votes.items():
+	# 				tempArr.append(str(otherKey))
+	# 				tempArr.append(str(otherValue))
+	# 	tempArr.append('\n')
+	# tempStr = ",".join(tempArr)
+
+	print(outputStr, end="", file=output)
 
 def main() :
-
+		inFile = open("projectInfo.txt", "r")
+		outFile = open("projectInfo.txt", "a")
 		option = '*'
 		
 		while option != 'Q':
@@ -216,7 +258,8 @@ def main() :
 					showVotes()
 
 		#Read File
-
+		writeFile(outFile)
+		# writeFile():
 		print('\n\nBye, bye.')
 
 				
