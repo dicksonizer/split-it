@@ -18,7 +18,6 @@ def about() :
 									 'project participants based of the votes of their '
 									 'peers.\n')
 		print(aboutString)
-		print(len(projectDict))
 
 def printMenu():
 		menuString = ('Welcome to Split-it:\n\n'
@@ -53,8 +52,8 @@ def getOption():
 def createProject():
 	projectTitle = input(str('Enter Project title: '))
 	
-	while Project.isValidName(projectTitle) == False:
-		print(('\n\t\tThe project name must be more than {} characters long, '
+	while (Project.isValidName(projectTitle) == False) or projectTitle in projectDict:
+		print(('\n\t\tThe project name must not exist already, be more than {} characters long, '
 							 'less than {} characters long and must contain only '
 							 'alphabetic characters. Try again.\n').format(Project.MINIMUM_NAME_LENGTH - 1, Project.MAXIMUM_NAME_LENGTH + 1))
 		projectTitle = input('\n\tEnter project title: ')
