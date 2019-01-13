@@ -159,21 +159,22 @@ def addPoints(projectName):
 			except:
 				temparr = [int(votes)]
 				finalDict[str(name)]= temparr
-	print(finalDict)
+	# print(finalDict)
 
 	"""------MAKE A FUNCTION -------"""
 	#This for loop uses the above dictionary to assign Person instance --> Votes Received
 	for personInstance in names:
 		for key, values in finalDict.items():
 			if key == str(personInstance):
-				print(key,values)
+				# print(key,values)
 				personInstance.addVoteReceived(key,values)
 
 	#For testing; Check that every person objects are assigned votes (and the person who voted)
-	print('Person object in project now contain votes:')
+	print('Person instance in project now contain votes:')
 	for personInstance in names:
 		print('' + personInstance.name + '\'s object is: ', end = '')
 		print(personInstance.asDict())
+	print()
 
 def showVotes():
 	#Validation: allow to show votes only if project is created AND votes are entered into it
@@ -182,6 +183,8 @@ def showVotes():
 			if len(member.votes.values()) == 0:
 					print('You have not entered votes for ' + key + ' project -> ' + 'Redirecting you to enter votes')
 					addPoints(key)
+					print('Redirecting back to option (S)')
+
 
 	if not projectDict:
 		print('No project objects exist!\n')
@@ -329,7 +332,7 @@ def main() :
 		outFile = open("projectInfo.txt", "w")
 		writeFile(outFile)
 		# writeFile():
-		print('\n\nBye, bye.')
+		print('\n\nWrote to projectInfo.txt; Bye, bye.')
 
 				
 # Start the program
