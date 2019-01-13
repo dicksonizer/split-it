@@ -30,3 +30,10 @@ class TestProject_class(unittest.TestCase):
 	def test_isInteger(self, number):
 		assertTrue(number(4, 3, 2))
 		assertFalse(number('', ' ', '4'))
+
+	def test_isPositive(self,number):
+		assertTrue(number(4,50,100))
+		assertFalse(number('','_', '$', -1))
+		
+if __name__ == '__main__':
+    unittest.main()
