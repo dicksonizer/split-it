@@ -1,3 +1,3 @@
-Apple,3,Xiang,Asim,Bogdan,Xiang,Asim,50,Bogdan,50,Asim,Xiang,20,Bogdan,80,Bogdan,Xiang,30,Asim,70
+Apple,3,Xiang,Asim,Bogdan,Xiang,Asim,50,Bogdan,50,Asim,Xiang,35,Bogdan,65,Bogdan,Xiang,40,Asim,60
 Dogshit,3,AAA,BBB,CCC,AAA,BBB,50,CCC,50,BBB,AAA,20,CCC,80,CCC,AAA,10,BBB,90
 DogCrap,3,DDD,EEE,FFF,DDD,EEE,30,FFF,70,EEE,DDD,20,FFF,80,FFF,DDD,11,EEE,89
