@@ -24,16 +24,16 @@ class TestProject_class(unittest.TestCase):
 		self.assertFalse(teamsize(6, 7, 'n')(ValueError))
 
 	def test_isValidTeamSize(self, theSize):
-		assertTrue(theSize(4, 5, 1, 2))
-		assertFalse(theSize(' ', '4'))
+		self.assertTrue(theSize(4, 5, 1, 2))
+		self.assertFalse(theSize(' ', '4'))
 
 	def test_isInteger(self, number):
-		assertTrue(number(4, 3, 2))
-		assertFalse(number('', ' ', '4'))
+		self.assertTrue(number(4, 3, 2))
+		self.assertFalse(number('', ' ', '4'))
 
 	def test_isPositive(self,number):
-		assertTrue(number(4,50,100))
-		assertFalse(number('','_', '$', -1))
+		self.assertTrue(number(4,50,100))
+		self.assertFalse(number('','_', '$', -1))
 		
 if __name__ == '__main__':
     unittest.main()
